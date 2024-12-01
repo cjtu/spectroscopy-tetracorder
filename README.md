@@ -1,3 +1,41 @@
+# Dockerized Tetracorder
+
+A first attempt at dockerizing the tetracorder install. Please see
+https://github.com/PSI-edu/spectroscopy-tetracorder for the most up to date 
+source code and usage instructions.
+
+## Building with Docker
+
+1. First install Docker for your system.
+
+2. Next you will need to download the [davinci_2.27-1_amd64_ubuntu20_04.deb](http://davinci.asu.edu/download.php?os=Linux&filename=davinci_2.27-1_amd64_ubuntu20_04.deb) from https://davinci.asu.edu/index.php?title=Download_For_Ubuntu. 
+
+3. Clone this repo and place the davinci.deb file in the root level (i.e., in the same folder as this README.md).
+
+4. Navigate to that root directory and build the docker container:
+
+```sh
+docker build -f Dockerfile -t tetracorder .
+```
+
+5. To access data from within docker, you need to mount your data folder to the container and run it like so (change `/path/to/your/data` to specify a folder on your machine):
+
+```sh
+docker run -it -v /path/to/your/data/:/home/rclark tetracorder
+```
+
+6. Now inside the container, you should see your data folder when you `ls`.
+
+7. The `tetracorder5.27`, `tetracorder5.27single` and `/t/tetracorder.cmds/tetracorder5.27e.cmds/` suite of commands should now be available in the container. 
+
+NOTES / WARNINGS: 
+
+- this only installs version 5.27 so you will need to update previous code using 5.26 to the 5.27 equivalents.
+- this has only been tested on ubuntu 22 thus far
+- your milage may vary, this was an experiment and is unlikely to be maintained
+
+See original repo for usage examples, tutorials, and help.
+
 The code here is covered by the GNU General Public License
 [https://www.gnu.org/licenses/gpl.html](https://www.gnu.org/licenses/gpl.html)
 
